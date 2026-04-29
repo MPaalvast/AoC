@@ -1,0 +1,54 @@
+<div class="panel">
+    <h2>Choose Year</h2>
+    <ul class="menu-list">
+        {% for year in years %}
+            <li class="menu-item {{ selectedYear == year ? 'is-selected' : '' }}">
+                <a href="{{ path('aoc_year', {year: year}) }}">{{ year }}</a>
+            </li>
+        {% else %}
+            <li>No years available yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% if selectedYear %}
+    <div class="panel">
+        <h2>Choose Day</h2>
+        <ul class="menu-list">
+            {% for day in days %}
+                <li class="menu-item {{ selectedDay == day ? 'is-selected' : '' }}">
+                    {% set p1 = dayProgresses[day][1] ?? 'not_started' %}
+                    {% set p2 = dayProgresses[day][2] ?? 'not_started' %}
+                    <a href="{{ path('aoc_day', {year: selectedYear, day: day}) }}">
+                        Day {{ '%02d'|format(day) }}
+                        <span class="progress-badge {{ p1 == 'solved' ? 'is-solved' : 'is-not-started' }}">P1 {{ p1 == 'solved' ? 'Solved' : 'Not started' }}</span>
+                        <span class="progress-badge {{ p2 == 'solved' ? 'is-solved' : 'is-not-started' }}">P2 {{ p2 == 'solved' ? 'Solved' : 'Not started' }}</span>
+                    </a>
+                </li>
+            {% else %}
+                <li>No days available for this year.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% if selectedYear and selectedDay %}
+    <div class="panel">
+        <h2>Choose Part</h2>
+        <ul class="menu-list">
+            {% for part in parts %}
+                <li class="menu-item {{ selectedPart == part ? 'is-selected' : '' }}">
+                    {% set status = partStatuses[part] ?? 'not_started' %}
+                    <a href="{{ path('aoc_part', {year: selectedYear, day: selectedDay, part: part}) }}">
+                        Part {{ part }}
+                        <span class="progress-badge {{ status == 'solved' ? 'is-solved' : 'is-not-started' }}">
+                            {{ status == 'solved' ? 'Solved' : 'Not started' }}
+                        </span>
+                    </a>
+                </li>
+            {% else %}
+                <li>No parts available for this day.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

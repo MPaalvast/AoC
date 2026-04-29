@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Advent of Code Runner{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block stylesheets %}
+        <style>
+            :root {
+                color-scheme: dark;
+            }
+
+            body {
+                margin: 0;
+                font-family: "Source Code Pro", "Menlo", "Monaco", monospace;
+                background: #0f0f23;
+                color: #cccccc;
+                line-height: 1.5;
+            }
+
+            .container {
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 24px 16px 48px;
+            }
+
+            a {
+                color: #99ff99;
+                text-decoration: none;
+            }
+
+            a:hover {
+                color: #ffff66;
+            }
+
+            h1, h2, h3 {
+                color: #ffffff;
+                margin-top: 0;
+            }
+
+            .panel {
+                border: 1px solid #333344;
+                background: #151530;
+                border-radius: 6px;
+                padding: 16px;
+                margin-bottom: 18px;
+            }
+
+            .menu-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin: 10px 0 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            .menu-item a {
+                border: 1px solid #334;
+                border-radius: 4px;
+                display: inline-block;
+                padding: 6px 10px;
+                background: #121226;
+            }
+
+            .progress-badge {
+                margin-left: 8px;
+                padding: 1px 6px;
+                border-radius: 10px;
+                border: 1px solid #333;
+                font-size: 12px;
+                display: inline-block;
+            }
+
+            .progress-badge.is-not-started {
+                border-color: #666;
+                color: #bbb;
+            }
+
+            .progress-badge.is-solved {
+                border-color: #99ff99;
+                color: #99ff99;
+            }
+
+            .menu-item.is-selected a {
+                border-color: #99ff99;
+                color: #ffff66;
+            }
+
+            textarea, pre {
+                width: 100%;
+                box-sizing: border-box;
+                border-radius: 4px;
+                border: 1px solid #333344;
+                background: #0b0b1e;
+                color: #cccccc;
+                padding: 10px;
+                font-family: inherit;
+                font-size: 14px;
+            }
+
+            textarea {
+                min-height: 160px;
+            }
+
+            button {
+                cursor: pointer;
+                border: 1px solid #99ff99;
+                border-radius: 4px;
+                background: transparent;
+                color: #99ff99;
+                font-family: inherit;
+                padding: 8px 12px;
+            }
+
+            input[type="number"] {
+                box-sizing: border-box;
+                border-radius: 4px;
+                border: 1px solid #333344;
+                background: #0b0b1e;
+                color: #cccccc;
+                padding: 8px;
+                font-family: inherit;
+                font-size: 14px;
+            }
+
+            button:hover {
+                color: #ffff66;
+                border-color: #ffff66;
+            }
+
+            .flash-error {
+                border-left: 4px solid #f66;
+                background: #2a0f1f;
+                padding: 8px 12px;
+                margin-bottom: 12px;
+            }
+        </style>
+    {% endblock %}
+</head>
+<body>
+<main class="container">
+    {% block body %}{% endblock %}
+</main>
+</body>
+</html>

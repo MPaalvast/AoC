@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Advent\Application\Command\RunSolution;
+
+final readonly class RunSolutionCommand
+{
+    public function __construct(
+        public int $year,
+        public int $day,
+        public int $part,
+        public string $input
+    ) {
+    }
+}

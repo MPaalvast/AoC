@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AoC Menu{% endblock %}
+
+{% block body %}
+    <h1>Advent of Code Solver</h1>
+    <p>
+        Choose a year, day, and part to run your solution class.
+        This starter uses DDD + CQRS + clean architecture boundaries in the backend.
+    </p>
+
+    {% include 'puzzle/_menu.html.twig' with {
+        years: years,
+        days: days,
+        parts: parts,
+        dayProgresses: dayProgresses,
+        partStatuses: partStatuses,
+        selectedYear: selectedYear,
+        selectedDay: selectedDay,
+        selectedPart: selectedPart
+    } %}
+
+    <p><a href="{{ path('aoc_admin_solutions') }}">View registered solvers (admin)</a></p>
+{% endblock %}

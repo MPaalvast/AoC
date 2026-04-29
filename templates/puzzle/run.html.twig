@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ puzzle.title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ puzzle.title }}</h1>
+    <p>Year {{ puzzle.year }}, Day {{ puzzle.day }}, Part {{ puzzle.part }}</p>
+    <p>{{ puzzle.description }}</p>
+
+    {% for message in app.flashes('error') %}
+        <div class="flash-error">{{ message }}</div>
+    {% endfor %}
+
+    {% include 'puzzle/_menu.html.twig' with {
+        years: years,
+        days: days,
+        parts: parts,
+        dayProgresses: dayProgresses,
+        partStatuses: partStatuses,
+        selectedYear: selectedYear,
+        selectedDay: selectedDay,
+        selectedPart: selectedPart
+    } %}
+
+    <div class="panel">
+        <h2>Progress</h2>
+        <p>
+            Current status:
+            <span class="progress-badge {{ partStatus == 'solved' ? 'is-solved' : 'is-not-started' }}">
+                {{ partStatus == 'solved' ? 'Solved' : 'Not started' }}
+            </span>
+        </p>
+        {% if partStatus != 'solved' %}
+            <form method="post" action="{{ path('aoc_mark_solved', {year: selectedYear, day: selectedDay, part: selectedPart}) }}">
+                <button type="submit">Mark as solved</button>
+            </form>
+        {% endif %}
+    </div>
+
+    <div class="panel">
+        <h2>Run Solution</h2>
+        <p>
+            Executing solver:
+            <strong>Year {{ selectedYear }} / Day {{ '%02d'|format(selectedDay) }} / Part {{ selectedPart }}</strong>
+        </p>
+        <form method="post" action="{{ path('aoc_part', {year: selectedYear, day: selectedDay, part: selectedPart}) }}">
+            <input type="hidden" name="run_solution" value="1">
+            <label for="input">Puzzle input</label>
+            <textarea id="input" name="input">{{ input }}</textarea>
+            <p>
+                <button type="submit">Run</button>
+            </p>
+        </form>
+    </div>
+
+    {% if result %}
+        <div class="panel">
+            <h2>Result</h2>
+            <p>Resolved solver class: <code>{{ result.solverClass }}</code></p>
+            <pre>{{ result.output }}</pre>
+        </div>
+    {% endif %}
+{% endblock %}
