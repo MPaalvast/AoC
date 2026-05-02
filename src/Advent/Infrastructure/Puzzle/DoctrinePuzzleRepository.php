@@ -38,7 +38,7 @@ final readonly class DoctrinePuzzleRepository implements PuzzleRepository
             new Year($year),
             new Day($day),
             new Part($part),
-            sprintf('Year %d Day %02d Part %d', $year, $day, $part),
+            sprintf('Year %d Day %02d', $year, $day),
             'Puzzle statement placeholder. Add your solver logic and input, then run and mark as solved when verified.'
         );
     }

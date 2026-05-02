@@ -1,0 +1,13 @@
+<turbo-frame id="{{ frameId }}">
+    <div class="result-box">
+        {% if errorMessage is defined and errorMessage %}
+            <strong>Fout</strong>
+            <pre>{{ errorMessage }}</pre>
+        {% elseif result %}
+{#            <strong>{{ result.solverClass }}</strong>#}
+            <pre>{{ result.output }}</pre>
+        {% else %}
+            {{ emptyText }}
+        {% endif %}
+    </div>
+</turbo-frame>
