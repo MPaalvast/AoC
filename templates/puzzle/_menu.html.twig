@@ -27,22 +27,3 @@
         {% endfor %}
     </ul>
 {% endif %}
-
-{#{% if selectedYear and selectedDay %}#}
-{#    <h3>Part kiezen</h3>#}
-{#    <ul class="menu-list">#}
-{#        {% for part in parts %}#}
-{#            <li class="menu-item {{ selectedPart == part ? 'is-selected' : '' }}">#}
-{#                {% set status = partStatuses[part] ?? 'not_started' %}#}
-{#                <a href="{{ path('aoc_part', {year: selectedYear, day: selectedDay, part: part}) }}">#}
-{#                    Part {{ part }}#}
-{#                    <span class="progress-badge {{ status == 'solved' ? 'is-solved' : 'is-not-started' }}">#}
-{#                        {{ status == 'solved' ? 'Solved' : 'Not started' }}#}
-{#                    </span>#}
-{#                </a>#}
-{#            </li>#}
-{#        {% else %}#}
-{#            <li>Geen parts beschikbaar voor deze dag.</li>#}
-{#        {% endfor %}#}
-{#    </ul>#}
-{#{% endif %}#}
