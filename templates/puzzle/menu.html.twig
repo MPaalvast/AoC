@@ -2,23 +2,86 @@
 
 {% block title %}AoC Menu{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .journal-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 24px;
+        }
+
+        .journal-sidebar,
+        .journal-main {
+            background: rgba(255, 255, 255, 0.42);
+            border: 1px solid rgba(120, 93, 73, 0.12);
+            border-radius: 18px;
+        }
+
+        .journal-sidebar {
+            padding: 18px;
+        }
+
+        .journal-main {
+            padding: 24px;
+        }
+
+        .brand {
+            font-family: "Georgia", serif;
+            font-size: 30px;
+            margin: 0;
+        }
+
+        .sidebar-subtitle {
+            margin-top: 2px;
+            color: #6f5b4e;
+        }
+
+        .admin-link {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(120, 93, 73, 0.16);
+            font-size: 14px;
+        }
+
+        @media (max-width: 1024px) {
+            .journal-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 44px;
+            }
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <h1>Advent of Code Solver</h1>
-    <p>
-        Choose a year, day, and part to run your solution class.
-        This starter uses DDD + CQRS + clean architecture boundaries in the backend.
-    </p>
+    <div class="journal-layout">
+        <aside class="journal-sidebar">
+            <h2 class="brand">Almanac</h2>
+            <p class="sidebar-subtitle">je dagelijkse journal</p>
 
-    {% include 'puzzle/_menu.html.twig' with {
-        years: years,
-        days: days,
-        parts: parts,
-        dayProgresses: dayProgresses,
-        partStatuses: partStatuses,
-        selectedYear: selectedYear,
-        selectedDay: selectedDay,
-        selectedPart: selectedPart
-    } %}
+            {% include 'puzzle/_menu.html.twig' with {
+                years: years,
+                days: days,
+                parts: parts,
+                dayProgresses: dayProgresses,
+                partStatuses: partStatuses,
+                selectedYear: selectedYear,
+                selectedDay: selectedDay,
+                selectedPart: selectedPart
+            } %}
 
-    <p><a href="{{ path('aoc_admin_solutions') }}">View registered solvers (admin)</a></p>
+            <p class="admin-link">
+                <a href="{{ path('aoc_admin_solutions') }}">Ga naar admin-overzicht van registered solvers</a>
+            </p>
+        </aside>
+
+        <section class="journal-main">
+            <span class="heading-tag">Advent of Code · Home</span>
+            <h1 class="page-title">Almanac</h1>
+            <p class="page-subtitle">Kies links je jaar, dag en part om direct naar de juiste puzzelpagina te gaan.</p>
+        </section>
+    </div>
 {% endblock %}

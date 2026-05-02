@@ -7,43 +7,43 @@
     {% block stylesheets %}
         <style>
             :root {
-                color-scheme: dark;
+                color-scheme: light;
             }
 
             body {
                 margin: 0;
-                font-family: "Source Code Pro", "Menlo", "Monaco", monospace;
-                background: #0f0f23;
-                color: #cccccc;
+                font-family: "Inter", "Segoe UI", sans-serif;
+                background: #e8ddcd;
+                color: #49382d;
                 line-height: 1.5;
             }
 
             .container {
-                max-width: 900px;
+                max-width: 1280px;
                 margin: 0 auto;
-                padding: 24px 16px 48px;
+                padding: 28px 16px 48px;
             }
 
             a {
-                color: #99ff99;
+                color: #7f5136;
                 text-decoration: none;
             }
 
             a:hover {
-                color: #ffff66;
+                color: #5f3b26;
             }
 
             h1, h2, h3 {
-                color: #ffffff;
+                color: #36271f;
                 margin-top: 0;
             }
 
             .panel {
-                border: 1px solid #333344;
-                background: #151530;
-                border-radius: 6px;
-                padding: 16px;
-                margin-bottom: 18px;
+                border: 1px solid rgba(120, 93, 73, 0.12);
+                background: rgba(255, 255, 255, 0.42);
+                border-radius: 16px;
+                padding: 20px;
+                margin-bottom: 16px;
             }
 
             .menu-list {
@@ -56,44 +56,46 @@
             }
 
             .menu-item a {
-                border: 1px solid #334;
-                border-radius: 4px;
+                border: 1px solid #d7c7b4;
+                border-radius: 10px;
                 display: inline-block;
-                padding: 6px 10px;
-                background: #121226;
+                padding: 8px 10px;
+                background: #f8f2eb;
+                color: #49382d;
             }
 
             .progress-badge {
                 margin-left: 8px;
                 padding: 1px 6px;
                 border-radius: 10px;
-                border: 1px solid #333;
+                border: 1px solid #d7c7b4;
                 font-size: 12px;
                 display: inline-block;
             }
 
             .progress-badge.is-not-started {
-                border-color: #666;
-                color: #bbb;
+                border-color: #d7c7b4;
+                color: #8c745f;
             }
 
             .progress-badge.is-solved {
-                border-color: #99ff99;
-                color: #99ff99;
+                border-color: #98b88a;
+                color: #4f7440;
             }
 
             .menu-item.is-selected a {
-                border-color: #99ff99;
-                color: #ffff66;
+                border-color: #d5b08f;
+                background: #e3c8ac;
+                font-weight: 600;
             }
 
             textarea, pre {
                 width: 100%;
                 box-sizing: border-box;
-                border-radius: 4px;
-                border: 1px solid #333344;
-                background: #0b0b1e;
-                color: #cccccc;
+                border-radius: 12px;
+                border: 1px solid #d7c7b4;
+                background: #f8f2eb;
+                color: #49382d;
                 padding: 10px;
                 font-family: inherit;
                 font-size: 14px;
@@ -105,35 +107,61 @@
 
             button {
                 cursor: pointer;
-                border: 1px solid #99ff99;
-                border-radius: 4px;
-                background: transparent;
-                color: #99ff99;
+                border: 0;
+                border-radius: 999px;
+                background: #e49f68;
+                color: #fff;
                 font-family: inherit;
-                padding: 8px 12px;
+                padding: 10px 14px;
+                font-weight: 600;
             }
 
             input[type="number"] {
                 box-sizing: border-box;
-                border-radius: 4px;
-                border: 1px solid #333344;
-                background: #0b0b1e;
-                color: #cccccc;
+                border-radius: 10px;
+                border: 1px solid #d7c7b4;
+                background: #f8f2eb;
+                color: #49382d;
                 padding: 8px;
                 font-family: inherit;
                 font-size: 14px;
             }
 
             button:hover {
-                color: #ffff66;
-                border-color: #ffff66;
+                background: #d88c50;
+                color: #fff;
             }
 
             .flash-error {
-                border-left: 4px solid #f66;
-                background: #2a0f1f;
+                border-left: 4px solid #cb5f41;
+                background: #f9d7ca;
+                color: #5c2618;
+                border-radius: 8px;
                 padding: 8px 12px;
                 margin-bottom: 12px;
+            }
+
+            .page-title {
+                font-family: "Georgia", serif;
+                font-size: 52px;
+                margin-bottom: 8px;
+            }
+
+            .page-subtitle {
+                margin-top: 0;
+                color: #6f5b4e;
+                font-size: 18px;
+            }
+
+            .heading-tag {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 12px;
+                color: #8c745f;
+                border: 1px solid #d5c3af;
+                border-radius: 999px;
+                padding: 4px 10px;
             }
         </style>
     {% endblock %}
@@ -142,5 +170,24 @@
 <main class="container">
     {% block body %}{% endblock %}
 </main>
+{% block javascripts %}
+    <script type="module">
+        import 'https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.12/+esm';
+        import { Application, Controller } from 'https://cdn.jsdelivr.net/npm/@hotwired/stimulus@3.2.2/+esm';
+
+        const application = Application.start();
+
+        application.register('part-submit', class extends Controller {
+            prepare(event) {
+                const frame = event.currentTarget.dataset.frame;
+                if (!frame) {
+                    return;
+                }
+
+                this.element.dataset.turboFrame = frame;
+            }
+        });
+    </script>
+{% endblock %}
 </body>
 </html>

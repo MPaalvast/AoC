@@ -1,63 +1,286 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ puzzle.title }}{% endblock %}
+{% block title %}{{ puzzlePart1.title }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        :root {
+            color-scheme: light;
+        }
+
+        body {
+            background: #e8ddcd;
+            color: #49382d;
+            font-family: "Inter", "Segoe UI", sans-serif;
+        }
+
+        .container {
+            max-width: 1280px;
+            padding-top: 28px;
+        }
+
+        .journal-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 24px;
+        }
+
+        .journal-sidebar,
+        .journal-main {
+            background: rgba(255, 255, 255, 0.42);
+            border: 1px solid rgba(120, 93, 73, 0.12);
+            border-radius: 18px;
+        }
+
+        .journal-sidebar {
+            padding: 18px;
+        }
+
+        .journal-main {
+            padding: 24px;
+        }
+
+        .brand {
+            font-family: "Georgia", serif;
+            font-size: 30px;
+            margin: 0;
+        }
+
+        .sidebar-subtitle {
+            margin-top: 2px;
+            color: #6f5b4e;
+        }
+
+        .admin-link {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(120, 93, 73, 0.16);
+            font-size: 14px;
+        }
+
+        .heading-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #8c745f;
+            border: 1px solid #d5c3af;
+            border-radius: 999px;
+            padding: 4px 10px;
+        }
+
+        .day-title {
+            font-family: "Georgia", serif;
+            font-size: 64px;
+            margin: 16px 0 12px;
+            color: #36271f;
+        }
+
+        .day-description {
+            color: #6f5b4e;
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .shared-input {
+            margin-bottom: 24px;
+        }
+
+        .shared-input label {
+            display: block;
+            margin-bottom: 8px;
+            color: #7f6755;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: .07em;
+        }
+
+        .shared-input textarea {
+            background: #f8f2eb;
+            border: 1px solid #d7c7b4;
+            color: #49382d;
+            min-height: 120px;
+            border-radius: 12px;
+        }
+
+        .parts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .part-card {
+            background: #f7f3ef;
+            border: 1px solid #dfd3c8;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .part-card h2 {
+            margin: 0 0 6px;
+            color: #3d2e24;
+            font-family: "Georgia", serif;
+            font-size: 36px;
+        }
+
+        .part-status {
+            margin-bottom: 14px;
+            color: #7f6755;
+        }
+
+        .result-box {
+            margin-top: 14px;
+            border: 1px dashed #ccb9a7;
+            border-radius: 10px;
+            padding: 12px;
+            background: #fbf7f2;
+        }
+
+        .result-box pre {
+            background: transparent;
+            border: 0;
+            color: #49382d;
+            padding: 0;
+            margin: 8px 0 0;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .actions button {
+            border: 0;
+            border-radius: 999px;
+            padding: 10px 14px;
+            background: #e49f68;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .actions button:hover {
+            background: #d88c50;
+            color: #fff;
+        }
+
+        .flash-error {
+            border-left: 4px solid #cb5f41;
+            background: #f9d7ca;
+            color: #5c2618;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 1024px) {
+            .journal-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .parts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .day-title {
+                font-size: 48px;
+            }
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>{{ puzzle.title }}</h1>
-    <p>Year {{ puzzle.year }}, Day {{ puzzle.day }}, Part {{ puzzle.part }}</p>
-    <p>{{ puzzle.description }}</p>
+    {% set part1Status = partStatuses[1] ?? 'not_started' %}
+    {% set part2Status = partStatuses[2] ?? 'not_started' %}
 
     {% for message in app.flashes('error') %}
         <div class="flash-error">{{ message }}</div>
     {% endfor %}
 
-    {% include 'puzzle/_menu.html.twig' with {
-        years: years,
-        days: days,
-        parts: parts,
-        dayProgresses: dayProgresses,
-        partStatuses: partStatuses,
-        selectedYear: selectedYear,
-        selectedDay: selectedDay,
-        selectedPart: selectedPart
-    } %}
+    <div class="journal-layout">
+        <aside class="journal-sidebar">
+            <h2 class="brand">Almanac</h2>
+            <p class="sidebar-subtitle">je dagelijkse journal</p>
 
-    <div class="panel">
-        <h2>Progress</h2>
-        <p>
-            Current status:
-            <span class="progress-badge {{ partStatus == 'solved' ? 'is-solved' : 'is-not-started' }}">
-                {{ partStatus == 'solved' ? 'Solved' : 'Not started' }}
-            </span>
-        </p>
-        {% if partStatus != 'solved' %}
-            <form method="post" action="{{ path('aoc_mark_solved', {year: selectedYear, day: selectedDay, part: selectedPart}) }}">
-                <button type="submit">Mark as solved</button>
-            </form>
-        {% endif %}
-    </div>
+            {% include 'puzzle/_menu.html.twig' with {
+                years: years,
+                days: days,
+                parts: parts,
+                dayProgresses: dayProgresses,
+                partStatuses: partStatuses,
+                selectedYear: selectedYear,
+                selectedDay: selectedDay,
+                selectedPart: selectedPart
+            } %}
 
-    <div class="panel">
-        <h2>Run Solution</h2>
-        <p>
-            Executing solver:
-            <strong>Year {{ selectedYear }} / Day {{ '%02d'|format(selectedDay) }} / Part {{ selectedPart }}</strong>
-        </p>
-        <form method="post" action="{{ path('aoc_part', {year: selectedYear, day: selectedDay, part: selectedPart}) }}">
-            <input type="hidden" name="run_solution" value="1">
-            <label for="input">Puzzle input</label>
-            <textarea id="input" name="input">{{ input }}</textarea>
-            <p>
-                <button type="submit">Run</button>
+            <p class="admin-link">
+                <a href="{{ path('aoc_admin_solutions') }}">Ga naar admin-overzicht van registered solvers</a>
             </p>
-        </form>
-    </div>
+        </aside>
 
-    {% if result %}
-        <div class="panel">
-            <h2>Result</h2>
-            <p>Resolved solver class: <code>{{ result.solverClass }}</code></p>
-            <pre>{{ result.output }}</pre>
-        </div>
-    {% endif %}
+        <section class="journal-main">
+            <span class="heading-tag">{{ selectedYear }} · Day {{ selectedDay }}</span>
+            <h1 class="day-title">{{ puzzlePart1.title }}</h1>
+{#            <p class="day-description">Één input voor de dag, die je voor beide parts kunt submitten.</p>#}
+
+            <form
+                method="post"
+                action="{{ path('aoc_part', {year: selectedYear, day: selectedDay, part: selectedPart}) }}"
+                data-controller="part-submit"
+            >
+                <div class="shared-input">
+                    <label for="day-input">Jouw input (gedeeld voor part 1 en part 2)</label>
+                    <textarea id="day-input" name="input">{{ input }}</textarea>
+                </div>
+
+                <div class="parts-grid">
+                    <article class="part-card">
+                        <h2>Part 1</h2>
+                        <div class="part-status">Status: {{ part1Status == 'solved' ? 'Solved' : 'Not started' }}</div>
+                        <p>{{ puzzlePart1.description }}</p>
+                        <div class="actions">
+                            <button
+                                type="submit"
+                                formaction="{{ path('aoc_part', {year: selectedYear, day: selectedDay, part: 1}) }}"
+                                data-action="click->part-submit#prepare"
+                                data-frame="part-result-1"
+                            >Submit part 1</button>
+                            {% if part1Status != 'solved' %}
+                                <button type="submit" formaction="{{ path('aoc_mark_solved', {year: selectedYear, day: selectedDay, part: 1}) }}" data-turbo="false">Mark solved</button>
+                            {% endif %}
+                        </div>
+
+                        {{ include('puzzle/_part_result.html.twig', {
+                            frameId: 'part-result-1',
+                            result: results[1],
+                            emptyText: 'Nog geen resultaat voor part 1.'
+                        }) }}
+                    </article>
+
+                    <article class="part-card">
+                        <h2>Part 2</h2>
+                        <div class="part-status">Status: {{ part2Status == 'solved' ? 'Solved' : 'Not started' }}</div>
+                        <p>{{ puzzlePart2.description }}</p>
+                        <div class="actions">
+                            <button
+                                type="submit"
+                                formaction="{{ path('aoc_part', {year: selectedYear, day: selectedDay, part: 2}) }}"
+                                data-action="click->part-submit#prepare"
+                                data-frame="part-result-2"
+                            >Submit part 2</button>
+                            {% if part2Status != 'solved' %}
+                                <button type="submit" formaction="{{ path('aoc_mark_solved', {year: selectedYear, day: selectedDay, part: 2}) }}" data-turbo="false">Mark solved</button>
+                            {% endif %}
+                        </div>
+
+                        {{ include('puzzle/_part_result.html.twig', {
+                            frameId: 'part-result-2',
+                            result: results[2],
+                            emptyText: 'Nog geen resultaat voor part 2.'
+                        }) }}
+                    </article>
+                </div>
+            </form>
+        </section>
+    </div>
 {% endblock %}

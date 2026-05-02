@@ -37,5 +37,7 @@ final class Part2Solver implements PuzzleSolver
             }
             $i++;
         }
+
+        return "Basement not reached!";
     }
 }

@@ -76,20 +76,38 @@ final class PuzzleController extends AbstractController
         GetPuzzleHandler $getPuzzleHandler,
         RunSolutionHandler $runSolutionHandler
     ): Response {
-        $puzzle = $getPuzzleHandler(new GetPuzzleQuery($year, $day, $part));
-        if ($puzzle === null) {
+        $part1Puzzle = $getPuzzleHandler(new GetPuzzleQuery($year, $day, 1));
+        $part2Puzzle = $getPuzzleHandler(new GetPuzzleQuery($year, $day, 2));
+        if ($part1Puzzle === null || $part2Puzzle === null) {
             throw $this->createNotFoundException('Puzzle not found.');
         }
 
         $input = '';
-        $result = null;
+        $results = [
+            1 => null,
+            2 => null,
+        ];
+        $errorMessage = null;
         if ($request->isMethod('POST')) {
             $input = (string) $request->request->get('input', '');
 
             try {
-                $result = $runSolutionHandler(new RunSolutionCommand($year, $day, $part, $input));
+                $results[$part] = $runSolutionHandler(new RunSolutionCommand($year, $day, $part, $input));
             } catch (\RuntimeException $exception) {
-                $this->addFlash('error', $exception->getMessage());
+                $errorMessage = $exception->getMessage();
+                if (!$request->headers->has('Turbo-Frame')) {
+                    $this->addFlash('error', $errorMessage);
+                }
+            }
+
+            $frameId = $request->headers->get('Turbo-Frame');
+            if ($frameId === sprintf('part-result-%d', $part)) {
+                return $this->render('puzzle/_part_result.html.twig', [
+                    'frameId' => $frameId,
+                    'result' => $results[$part],
+                    'errorMessage' => $errorMessage,
+                    'emptyText' => sprintf('Nog geen resultaat voor part %d.', $part),
+                ]);
             }
         }
 
@@ -106,9 +124,10 @@ final class PuzzleController extends AbstractController
             'selectedYear' => $year,
             'selectedDay' => $day,
             'selectedPart' => $part,
-            'puzzle' => $puzzle,
+            'puzzlePart1' => $part1Puzzle,
+            'puzzlePart2' => $part2Puzzle,
             'input' => $input,
-            'result' => $result,
+            'results' => $results,
         ]);
     }
 
