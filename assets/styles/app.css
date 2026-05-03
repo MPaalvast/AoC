@@ -1,0 +1,323 @@
+:root {
+    color-scheme: light;
+}
+
+body {
+    margin: 0;
+    font-family: "Inter", "Segoe UI", sans-serif;
+    background: #e8ddcd;
+    color: #49382d;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 28px 16px 48px;
+}
+
+a {
+    color: #7f5136;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #5f3b26;
+}
+
+h1, h2, h3 {
+    color: #36271f;
+    margin-top: 0;
+}
+
+.panel {
+    border: 1px solid rgba(120, 93, 73, 0.12);
+    background: rgba(255, 255, 255, 0.42);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.menu-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.menu-item a {
+    border: 1px solid #d7c7b4;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 8px 10px;
+    background: #f8f2eb;
+    color: #49382d;
+}
+
+.progress-badge {
+    margin-left: 8px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    border: 1px solid #d7c7b4;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.progress-badge.is-not-started {
+    border-color: #d7c7b4;
+    color: #8c745f;
+}
+
+.progress-badge.is-solved {
+    border-color: #98b88a;
+    color: #4f7440;
+}
+
+.menu-item.is-selected a {
+    border-color: #d5b08f;
+    background: #e3c8ac;
+    font-weight: 600;
+}
+
+textarea, pre {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: 1px solid #d7c7b4;
+    background: #f8f2eb;
+    color: #49382d;
+    padding: 10px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 160px;
+}
+
+button {
+    cursor: pointer;
+    border: 0;
+    border-radius: 999px;
+    background: #e49f68;
+    color: #fff;
+    font-family: inherit;
+    padding: 10px 14px;
+    font-weight: 600;
+}
+
+input[type="number"] {
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #d7c7b4;
+    background: #f8f2eb;
+    color: #49382d;
+    padding: 8px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #d88c50;
+    color: #fff;
+}
+
+.flash-error {
+    border-left: 4px solid #cb5f41;
+    background: #f9d7ca;
+    color: #5c2618;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+}
+
+.page-title {
+    font-family: "Georgia", serif;
+    font-size: 52px;
+    margin-bottom: 8px;
+}
+
+.page-subtitle {
+    margin-top: 0;
+    color: #6f5b4e;
+    font-size: 18px;
+}
+
+.day-title {
+    font-family: "Georgia", serif;
+    font-size: 64px;
+    margin: 16px 0 12px;
+    color: #36271f;
+}
+
+.day-description {
+    color: #6f5b4e;
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.heading-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #8c745f;
+    border: 1px solid #d5c3af;
+    border-radius: 999px;
+    padding: 4px 10px;
+}
+
+
+
+.journal-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 24px;
+}
+
+.journal-sidebar,
+.journal-main {
+    background: rgba(255, 255, 255, 0.42);
+    border: 1px solid rgba(120, 93, 73, 0.12);
+    border-radius: 18px;
+}
+
+.journal-sidebar {
+    padding: 18px;
+}
+
+.journal-main {
+    padding: 24px;
+}
+
+.brand {
+    font-family: "Georgia", serif;
+    font-size: 30px;
+    margin: 0;
+}
+
+.sidebar-subtitle {
+    margin-top: 2px;
+    color: #6f5b4e;
+}
+
+.admin-link {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(120, 93, 73, 0.16);
+    font-size: 14px;
+}
+
+
+.day-title {
+    font-family: "Georgia", serif;
+    font-size: 64px;
+    margin: 16px 0 12px;
+    color: #36271f;
+}
+
+.day-description {
+    color: #6f5b4e;
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.shared-input {
+    margin-bottom: 24px;
+}
+
+.shared-input label {
+    display: block;
+    margin-bottom: 8px;
+    color: #7f6755;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: .07em;
+}
+
+.shared-input textarea {
+    background: #f8f2eb;
+    border: 1px solid #d7c7b4;
+    color: #49382d;
+    min-height: 120px;
+    border-radius: 12px;
+}
+
+.parts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.part-card {
+    background: #f7f3ef;
+    border: 1px solid #dfd3c8;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.part-card h2 {
+    margin: 0 0 6px;
+    color: #3d2e24;
+    font-family: "Georgia", serif;
+    font-size: 36px;
+}
+
+.part-status {
+    margin-bottom: 14px;
+    color: #7f6755;
+}
+
+.result-box {
+    margin-top: 14px;
+    border: 1px dashed #ccb9a7;
+    border-radius: 10px;
+    padding: 12px;
+    background: #fbf7f2;
+}
+
+.result-box pre {
+    background: transparent;
+    border: 0;
+    color: #49382d;
+    padding: 0;
+    margin: 8px 0 0;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.actions button {
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 14px;
+    background: #e49f68;
+    color: #fff;
+    font-weight: 600;
+}
+
+.actions button:hover {
+    background: #d88c50;
+    color: #fff;
+}
+
+@media (max-width: 1024px) {
+    .journal-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .parts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-title {
+        font-size: 44px;
+    }
+}

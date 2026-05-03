@@ -2,60 +2,6 @@
 
 {% block title %}AoC Menu{% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <style>
-        .journal-layout {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 24px;
-        }
-
-        .journal-sidebar,
-        .journal-main {
-            background: rgba(255, 255, 255, 0.42);
-            border: 1px solid rgba(120, 93, 73, 0.12);
-            border-radius: 18px;
-        }
-
-        .journal-sidebar {
-            padding: 18px;
-        }
-
-        .journal-main {
-            padding: 24px;
-        }
-
-        .brand {
-            font-family: "Georgia", serif;
-            font-size: 30px;
-            margin: 0;
-        }
-
-        .sidebar-subtitle {
-            margin-top: 2px;
-            color: #6f5b4e;
-        }
-
-        .admin-link {
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(120, 93, 73, 0.16);
-            font-size: 14px;
-        }
-
-        @media (max-width: 1024px) {
-            .journal-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .page-title {
-                font-size: 44px;
-            }
-        }
-    </style>
-{% endblock %}
-
 {% block body %}
     <div class="journal-layout">
         <aside class="journal-sidebar">

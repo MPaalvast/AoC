@@ -90,6 +90,12 @@ final class PuzzleController extends AbstractController
         $errorMessage = null;
         if ($request->isMethod('POST')) {
             $input = (string) $request->request->get('input', '');
+            $result1Output = trim((string) $request->request->get('result_1_output', ''));
+            $result2Output = trim((string) $request->request->get('result_2_output', ''));
+            $results = [
+                1 => $result1Output === '' ? null : ['output' => $result1Output],
+                2 => $result2Output === '' ? null : ['output' => $result2Output],
+            ];
 
             try {
                 $results[$part] = $runSolutionHandler(new RunSolutionCommand($year, $day, $part, $input));
