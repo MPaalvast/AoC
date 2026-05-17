@@ -60,6 +60,8 @@
                             >Submit part 1</button>
                             {% if part1Status != 'solved' %}
                                 <button type="submit" formaction="{{ path('aoc_mark_solved', {year: selectedYear, day: selectedDay, part: 1}) }}" data-turbo="false">Mark solved</button>
+                            {% else %}
+                                <button type="submit" formaction="{{ path('aoc_mark_open', {year: selectedYear, day: selectedDay, part: 1}) }}" data-turbo="false">Mark open</button>
                             {% endif %}
                         </div>
 
@@ -82,6 +84,8 @@
                             >Submit part 2</button>
                             {% if part2Status != 'solved' %}
                                 <button type="submit" formaction="{{ path('aoc_mark_solved', {year: selectedYear, day: selectedDay, part: 2}) }}" data-turbo="false">Mark solved</button>
+                            {% else %}
+                                <button type="submit" formaction="{{ path('aoc_mark_open', {year: selectedYear, day: selectedDay, part: 2}) }}" data-turbo="false">Mark open</button>
                             {% endif %}
                         </div>
 

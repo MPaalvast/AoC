@@ -14,39 +14,8 @@
     <p>
         Add a new class that implements <code>App\Advent\Domain\PuzzleSolver</code> under
         <code>src/Advent/Infrastructure/Solution/YearYYYY/DayXX/PartXSolver.php</code>.
-        It will be auto-tagged and available in this list.
+        It will be auto-tagged and available in this list via <code>solutionIndex</code>.
     </p>
-
-    <div class="panel">
-        <h2>Add Year</h2>
-        <form method="post" action="{{ path('aoc_admin_add_year') }}">
-            <label for="year">Year</label>
-            <input id="year" name="year" type="number" min="2015" max="2100" required>
-            <label for="max_days">Max days in that year</label>
-            <input id="max_days" name="max_days" type="number" min="1" max="25" value="25" required>
-            <p><button type="submit">Add year</button></p>
-        </form>
-    </div>
-
-    <div class="panel">
-        <h2>Add Day</h2>
-        <form method="post" action="{{ path('aoc_admin_add_day') }}">
-            <label for="day_year">Year</label>
-            <input id="day_year" name="year" type="number" min="2015" max="2100" required>
-            <label for="day_number">Day</label>
-            <input id="day_number" name="day" type="number" min="1" max="25" required>
-            <p><button type="submit">Add day</button></p>
-        </form>
-    </div>
-
-    <div class="panel">
-        <h2>Configured Years and Days</h2>
-        {% for year in years %}
-            <p>Year {{ year }}: days {{ daysByYear[year]|length > 0 ? daysByYear[year]|join(', ') : 'none yet' }}</p>
-        {% else %}
-            <p>No years configured yet.</p>
-        {% endfor %}
-    </div>
 
     {% for year, days in solutionIndex %}
         <div class="panel">
